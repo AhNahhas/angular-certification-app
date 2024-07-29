@@ -1,0 +1,88 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <a routerLink="/movies">
+                <span class="icon-home"></span> Back
+            </a>
+        </div>
+
+        <div class="col-sm-12">
+            <ng-container *ngIf="(movie$ | async) as movie; else loading">
+
+                <div class="row">
+                    <div class="col-sm-12 movie-title">
+                        <h1>{{ movie.title }}</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 poster">
+                                    <img [src]="movie.poster" />
+                                </div>
+                                <div class="col-sm-12 col-md-6 summary">
+                                    <p>{{ movie.summary }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="horizontal">
+                            <caption>Details</caption>
+                            <thead>
+                                <tr>
+                                    <th>Box office</th>
+                                    <th>Budget</th>
+                                    <th>Duration</th>
+                                    <th>Producers</th>
+                                    <th>Cinematographers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Box office">
+                                        {{ movie.box_office | budget}}
+                                    </td>
+                                    <td data-label="Budget">
+                                        {{ movie.budget | budget }}
+                                    </td>
+                                    <td data-label="Duration">
+                                        {{ movie.duration | duration }}
+                                    </td>
+                                    <td data-label="Producers">
+                                        <ng-container [ngTemplateOutlet]="flatten" 
+                                            [ngTemplateOutletContext]="{ $implicit: movie.producers }">
+                                        </ng-container>
+                                    </td>
+                                    <td data-label="Cinematographers">
+                                        <ng-container [ngTemplateOutlet]="flatten" 
+                                            [ngTemplateOutletContext]="{ $implicit: movie.cinematographers }">
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="spinner"></div>
+</ng-template>
+
+<ng-template #flatten let-array>
+    <ng-container *ngFor="let element of array; last as isLast">
+        {{ element + ( !isLast ? ' - ' : '') }}
+    </ng-container>
+</ng-template>

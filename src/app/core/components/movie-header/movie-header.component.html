@@ -1,0 +1,14 @@
+
+<div class="card fluid">
+    <div class="section">
+        <h1>{{ movie.title }}</h1>
+    </div>
+    <div class="section button-right">
+        <div>
+            Release date: {{ movie.release_date | date:'yyyy-MM-dd' }} &nbsp;&#9679;&nbsp;
+            Budget: {{ movie.budget | budget }} &nbsp;&#9679;&nbsp;
+            Duration: {{ movie.duration | duration }}    
+        </div>
+        <button id="{{ movie.id }}" class="primary" [routerLink]="['/movies', movie.id]">Details</button>
+    </div>
+</div>

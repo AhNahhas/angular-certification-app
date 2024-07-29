@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form class="row" [formGroup]="filters">
+                <div class="col-sm-6 input-group vertical">
+                    <label for="title">Title</label>
+                    <input id="title" type="text" formControlName="title">
+                </div>
+                <div class="col-sm-6 input-group vertical">
+                    <label for="release_year">Release year</label>
+                    <input id="release_year" type="text" formControlName="release_year">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-12 text-center">
+            <ng-container *ngIf="(movies$ | async) as movies; else loading">
+                <app-movie-header *ngFor="let movie of movies" [movie]="movie"></app-movie-header>
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="spinner"></div>
+</ng-template>
