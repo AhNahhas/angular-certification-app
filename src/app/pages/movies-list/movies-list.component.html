@@ -16,7 +16,12 @@
 
         <div class="col-sm-12 text-center">
             <ng-container *ngIf="(movies$ | async) as movies; else loading">
-                <app-movie-header *ngFor="let movie of movies" [movie]="movie"></app-movie-header>
+                <ng-container *ngIf="movies == null || movies.length == 0; else movieHeaderList">
+                    No data available.
+                </ng-container>
+                <ng-template #movieHeaderList>
+                    <app-movie-header *ngFor="let movie of movies" [movie]="movie"></app-movie-header>
+                </ng-template>
             </ng-container>
         </div>
 
