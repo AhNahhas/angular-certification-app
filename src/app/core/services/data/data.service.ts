@@ -9,7 +9,7 @@ import { Movie } from '../../../models/movie.model';
 })
 export class DataService {
 
-  public readonly API_URL : string = 'http://localhost:4200';
+  public readonly API_URL : string = window.location.origin;
 
   constructor(private readonly http : HttpClient) { }
 
