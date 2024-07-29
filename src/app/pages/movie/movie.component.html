@@ -78,7 +78,11 @@
 </div>
 
 <ng-template #loading>
-    <div class="spinner"></div>
+    <div *ngIf="!empty; else emptyMessage" class="spinner"></div>
+</ng-template>
+
+<ng-template #emptyMessage>
+    <div class="empty-message">There is no details about this movie</div>
 </ng-template>
 
 <ng-template #flatten let-array>

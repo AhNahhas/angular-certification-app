@@ -15,6 +15,7 @@ import { SharedModule } from '../../core/components/shared.module';
 export class MovieComponent {
 
   movie$ : Observable<Movie>;
+  empty  : boolean = false;
 
   constructor(
     private readonly route : ActivatedRoute,
@@ -22,7 +23,9 @@ export class MovieComponent {
   ) {
 
     let id = route.snapshot.params['id'];
-    this.movie$ = dataService.getMovie(id);
+    this.movie$ = dataService.getMovie(id).pipe(
+      tap((movie : Movie) => this.empty = (movie == null))
+    );
 
   }
 
